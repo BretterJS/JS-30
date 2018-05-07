@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+
+  <style>
+  
+    body {
+      background-color: lightblue;
+    }
+
+    p {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <p onClick='makeGreen()'>×CONSOLExTRICKS!×</p>
+
+  <script>
+
+    // Wes Bos's JS 30 #9 Dev Tools Domination
+    
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+      p.style.textShadow = '1px 1px black';
+    }
+    
+  
+    // Regular
+
+    console.log('Hello World!');
+
+    // Interpolated
+
+    console.log(' Hello I am a %s string ', '☀');
+    // es6 with backticks
+    var sun = '☀';
+    console.log(`Hello I am a string ${sun}`);
+
+    // Styled
+
+    console.log('%cI am some great text', 'font-size: 20px; color: green; background-color: black; text-shadow: white; padding: 5px; margin: 5px');
+
+    // warning!
+
+    console.warn('OH NOO!');
+
+    // Error
+
+    console.error('ERROR!');
+
+    // Info
+
+    console.info('Crocodiles eat 3-4 people a year');
+
+    // Testing // Use assert to test for conditions
+
+    console.assert(1 == 2, 'THAT IS WRONG!');
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), "That Is WRONG!");
+
+    // clearing
+
+    // console.clear(); // Clears console ;)
+
+    // Viewing DOM Elements
+
+    console.log(p); // element
+    console.dir(p); // properties and methods 
+    console.table(dogs); // table of array
+
+    // Grouping together 
+
+    dogs.forEach((dog) => {
+      console.group(`${dogs}`); // Can also use groupCollapsed();
+      console.log(`${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} in dog years`);
+      console.groupEnd(`${dogs}`);
+    });
+
+    // counting
+
+    console.count('dog'); // Will count how many times you use a Word or Number or Object or DOM Node etc...
+
+    // Timing // also performance.now()
+
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(data =>data.json())
+      .then(data => {
+      console.timeEnd('fetching data');
+    console.log(data);
+    });
+
+    // Table
+
+    console.table(dogs);
+
+  </script>
+</body>
+</html>

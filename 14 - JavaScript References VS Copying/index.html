@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+
+  <style>
+
+    body {
+      background-color: purple;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: lightblue;
+      font-family: monospace;
+      text-align: center;
+    }
+
+    h1:hover {
+      color: yellow;
+      transform: scale(1.1);
+      text-shadow: 2px 2px black;
+    }
+
+
+     p {
+      color: lightblue;
+      font-family: monospace;
+      text-align: center;
+      }
+
+      p:hover {
+        color: yellow;
+        transform: scale(1.1);
+        text-shadow: 2px 2px black;
+      }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Wes Bos's JS 30 #14 References VS Copying -->
+
+  <h1>Check The Console!</h1>
+
+  <script>
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Custom Console Styles :)
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		var consoleStyle = ['background: purple', 'border: 2px solid yellow', 'color: lightblue', 'display: block'
+		, 'text-shadow: yellow', 'line-height: 40px', 'text-align: center', 'font-weight: bold', 'margin: 10px'
+		, 'padding: 10px'].join(';');
+
+    		var consoleStyle2 = ['background: purple', 'border: 2px solid lightblue', 'color: yellow', 'display: block'
+		, 'text-shadow: lightblue', 'line-height: 40px', 'text-align: left', 'font-weight: bold', 'margin: 2px'
+		, 'padding: 4px'].join(';');
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // start with strings, numbers and booleans
+
+    console.log('%c Referencing Arrays and Objects vs. Copying them.', consoleStyle);
+    // Let's say we have an array
+    
+    const players = ['Brett', 'Ryan', 'Jason', 'Blake'];
+
+    // and we want to make a copy of it.
+
+    console.log('%c Arrays.', consoleStyle2);
+
+    const team = players;
+    console.log(players,team);
+
+    // You might think we can just do something like this:
+
+    // team[3] = 'spongey';
+    console.log(team);
+    console.log(players);
+
+    // however what happens when we update that array?
+
+    // now here is the problem!
+
+    // oh no - we have edited the original array too!
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // So, how do we fix this? We take a copy instead!
+
+    const team2 = players.slice(); // makes a copy of the whole original array since no arguments are defined
+    team2[3] = 'spongey';
+    console.log(team, team2);
+    
+    // one day
+
+    // or create a new array and concat the old one in
+
+    const team3 = [].concat(players); // another way to make a copy by copying the original array to a new empty array
+    console.log(team3);
+
+    // or use the new ES6 Spread
+    const team4 = [...players]; // spreads original array into a new empty array 
+    console.log(team4);
+    team4[3] = 'sheeeesh';
+    console.log(team4, players);
+
+    //ES6 Array.from()
+    const team5 = Array.from(players);
+    console.log(team5);
+    team5[3] = 'cool';
+    console.log(team5, players);
+
+    // now when we update it, the original one isn't changed
+
+    // The same thing goes for objects, let's say we have a me object
+
+    console.log('%c Objects.', consoleStyle2);
+
+    const me = {
+
+      name: 'Brett',
+      age: 45
+
+    }
+
+    // and think we make a copy:
+
+    const myself = me;
+    // myself.number = 99;
+    console.log(me, myself); // myself is just a reference to the original me array so both are changed
+
+    // how do we take a copy instead?
+    //ES6 Object.assign();
+    const myself2 = Object.assign({}, me, {number: 99}); 
+    // args: 1. create empty object, 2. object to modify, 3. key/value pairs to add to original object thus creating new object
+    console.log(myself2, me);
+
+    // We will hopefully soon see the object ...spread
+
+    //ESFuture
+
+    // const myself3 = {...me}; // Spread into object // Not yet implemented
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+      const brett = {
+
+        name: 'brett',
+        social:{
+          twitter: '@BretterDev',
+          github: 'bretterjs',
+          gmail: 'bretterjs@gmail.com',
+          javascript: 'yes'
+        }
+      };
+
+      // console.clear();
+      console.log(brett);
+
+      const dev = Object.assign({}, brett);
+
+      dev.name = 'bretter';
+      console.log(brett, dev);
+
+      // dev.social.javascript = 'es6'; // Changes original too because Object.assign() only goes 1 level deep
+      console.log(brett, dev);
+
+      // JSON.parse()
+      const dev2 = JSON.parse(JSON.stringify(brett)); // AKA poor mans deep clone
+      dev2.social.javascript = 'yes plz';
+      console.log(brett, dev2);
+      // Doesn't change original because it makes a copy as a string then turns it back into an object
+
+  </script>
+
+</body>
+</html>
