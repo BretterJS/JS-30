@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sort Without Articles</title>
+</head>
+<body>
+
+  <!-- Wes Bos's JS-30 #17 Sort Without Articles-->
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background: url("https://source.unsplash.com/nDqA4d5NL0k/2000x2000");
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+    }
+    #bands {
+      list-style: inside square;
+      font-size: 20px;
+      background: white;
+      width: 500px;
+      margin: auto;
+      padding: 0;
+      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+    #bands li {
+      border-bottom: 1px solid #efefef;
+      padding: 20px;
+    }
+    #bands li:last-child {
+      border-bottom: 0;
+    }
+    a {
+      color: #ffc600;
+      text-decoration: none;
+    }
+
+    li {
+        background-color: lightgreen;
+        font-family: monospace, sans-serif; 
+        font-weight: bold;
+        border: 1px solid green;
+        text-shadow: 1px 1px white; 
+        list-style-type: none;
+    }
+
+    li:hover {
+      transform: scale(1.05);
+      color: white;
+      background-color: green;
+      border: 2px 2px lightgreen;
+      border-radius: 10px;
+      outline: none;
+      text-shadow: 1px 1px 1px black;
+      text-align: center;
+      list-style-type: none;
+      font-size: 30px;
+      -webkit-animation-name: color-change;
+      -webkit-animation-delay: .2s; 
+      -webkit-animation-duration: 1.2s; 
+      animation-name: color-change;
+      animation-delay: .2s;
+      animation-duration: 1.2s;
+    }
+
+    @keyframes color-change {
+      from {background-color: green; color: white; font-size: 30px; border: 2px solid black;}
+      to {background-color: lightgreen; color: green; font-size: 35px;}
+      
+    }
+
+    @webkit-keyframes color-change {
+      from {background-color: green; color: white; font-size: 30px; border: 2px solid black;}
+      to {background-color: lightgreen; color: green; font-size: 35px;}
+    }
+
+  </style>
+  <ul id="bands"></ul>
+<script>
+
+// const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway //State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+
+// Nu Metal?? LOL!!
+
+//Some Good Bands Instead and all are Canadian Eh!
+
+const goodCanadianBands = ['Nomeansno', 'The Hanson Brothers', 'Propagandhi', 'The Weakerthans', 'Stars', 'One Eyed God Prophecy', 'The Neos', 'Metric', 'Shotmaker', 'Three Penny Opera', 'Drift', 'The Subhumans', 'M Blanket', 'Ache Hour Credo', 'Daddy\'s Hands', 'Floragore', 'Arcade Fire', 'Grade', 'Sons of Ishmael', 'Union Of Uranus', 'D.O.A', 'Godspeed You! Black Emperor', 'The Pointed Sticks', 'Haymaker', 'The Swarm', 'Left For Dead', 'Japandroids', 'The Salteens', 'House of Commons', 'The Nils', 'Fucked Up', 'Martha and the Muffins', 'Career Suicide', 'Mexican Power Authority', 'Ire', 'Cobra Noir', 'Eric\'s Trip', 'The Forgotten Rebels', 'Chokehold', 'Sludge Confrontations', 'White Lung', 'Infamous Scientists', 'Tegan and Sara', 'SNFU', 'Born Dead Icons', 'Feist', 'Cursed', 'The Black Hand', 'Ruination', 'Teenage Head', 'Moneen', 'Wrought: Ironsmile', 'The Sainte Catherines', 'Jerk Ward', 'The Courtneys', 'Acrid', 'Burning Love', 'Broken Social Scene', 'The Deadly Snakes', 'Negative Gain', 'The Unicorns', 'Death From Above 1979', 'Sloan', 'Dayglo Abortions', 'Wolf Parade', 'Red Tide', 'The McRackins'];
+
+function strip(bandName) {
+  return bandName.replace(/^(a |the |an)/i, '').trim();
+};
+
+const sortedBands = goodCanadianBands.sort(function (a, b) {
+    if (strip(a) > strip(b)) {
+      return 1; 
+    } else {
+      return -1;
+    }
+});
+  
+/*
+// ES6 way of doing the same with ternary operator
+const sortedBands = bands.sort(a, b) => {
+     if strip(a) > strip(b) ? 1 : -1;
+};
+//ES6 in 1 line
+const sortedBands = bands.sort((a,b) => strip(a) > strip(b) ? 1 : -1);  
+*/
+
+document.querySelector('#bands').innerHTML = 
+  sortedBands.map(band => `<li> ${band} </li>`).join('');
+
+console.log(sortedBands);
+
+</script>
+
+</body>
+</html>
